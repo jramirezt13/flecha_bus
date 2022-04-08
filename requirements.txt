@@ -3,3 +3,5 @@ django-cors-headers==3.11.0
 djangorestframework==3.13.1
 django-environ==0.8.1
 pillow==9.1.0
+mysqlclient==2.0.1
+django-birthday==0.1.4
