@@ -38,7 +38,7 @@ class Chofer(models.Model):
     )
     nombre = models.CharField(max_length=10,verbose_name='Nombre',null=False, blank=False)
     apellido = models.CharField(max_length=10,verbose_name='Apellido',null=False, blank=False)
-    dni = models.IntegerField(max_length=10, verbose_name='DNI', null=False, blank=False)
+    dni = models.IntegerField(max_length=10, verbose_name='DNI', null=False, blank=False, unique=True)
     genero = models.CharField(max_length=30, choices=opciones, verbose_name='Genero', null=False, blank=False)
     fecha_nacimiento = BirthdayField()
     bus = models.OneToOneField(Bus, on_delete=models.CASCADE, related_name = "chofer_bus", null=True, blank=True)
@@ -56,8 +56,9 @@ class Pasajero(models.Model):
     )
     nombre = models.CharField(max_length=10,verbose_name='Nombre',null=False, blank=False)
     apellido = models.CharField(max_length=10,verbose_name='Apellido',null=False, blank=False)
-    dni = models.IntegerField(max_length=10, verbose_name='DNI', null=False, blank=False)
+    dni = models.IntegerField(max_length=10, verbose_name='DNI', null=False, blank=False, unique=True)
     genero = models.CharField(max_length=30, choices=opciones, verbose_name='Genero', null=False, blank=False)
+    correo = models.EmailField(max_length=50, verbose_name='Correo', null=True, blank=True, unique=True)
     fecha_nacimiento = BirthdayField()
     
     def __str__(self):
@@ -65,8 +66,8 @@ class Pasajero(models.Model):
         return fila
     
 class PasajeroBus(models.Model):
-    bus = models.OneToOneField(Bus, on_delete=models.CASCADE,null=True, blank=True)
-    pasajero = models.OneToOneField(Pasajero, on_delete=models.CASCADE,null=True, blank=True)
+    bus = models.OneToOneField(Bus, on_delete=models.CASCADE,null=False, blank=False)
+    pasajero = models.OneToOneField(Pasajero, on_delete=models.CASCADE,null=False, blank=False)
     numero_asiento = models.IntegerField(max_length=10, null=False, blank=False)
     
     def __str__(self):
